@@ -31,10 +31,7 @@ class ProductDetailActivity : BaseActivity(), ProductDetailDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+
 
         val intent = intent
         val productId = intent.getIntExtra("product_id", 0)

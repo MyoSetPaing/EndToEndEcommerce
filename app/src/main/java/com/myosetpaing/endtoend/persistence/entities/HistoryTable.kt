@@ -1,7 +1,8 @@
-package com.akkt.ecommerce.persistence.entities
+package com.myosetpaing.endtoend.persistence.entities
 
 import android.arch.persistence.room.*
 import com.myosetpaing.endtoend.data.vos.ProductVO
+import java.util.*
 
 
 @Entity(
@@ -19,5 +20,8 @@ data class HistoryTable(
     val historyId: Int? = null,
 
     @ColumnInfo(name = "product_id")
-    val productId: Int
+    val productId: Int,
+
+    @ColumnInfo(name = "updated_at")
+    val date: Date = Date()
 )

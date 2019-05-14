@@ -5,19 +5,18 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import com.akkt.ecommerce.data.vos.FavoriteVO
-import com.akkt.ecommerce.data.vos.LoginUserVO
-import com.akkt.ecommerce.persistence.dao.FavouriteDao
-import com.akkt.ecommerce.persistence.dao.HistoryDao
-import com.akkt.ecommerce.persistence.entities.ProductTable
-import com.akkt.ecommerce.persistence.entities.HistoryTable
-import com.akkt.ecommerce.persistence.typeconverters.CategoryListConverter
-import com.akkt.ecommerce.persistence.typeconverters.ProductImageUrlListConverter
+
+
 import com.myosetpaing.endtoend.data.vos.CategoryVO
+import com.myosetpaing.endtoend.data.vos.FavoriteVO
+import com.myosetpaing.endtoend.data.vos.LoginUserVO
 import com.myosetpaing.endtoend.data.vos.ProductVO
-import com.myosetpaing.endtoend.persistence.dao.CategoryDao
-import com.myosetpaing.endtoend.persistence.dao.LoginDao
-import com.myosetpaing.endtoend.persistence.dao.ProductDao
+import com.myosetpaing.endtoend.persistence.dao.*
+import com.myosetpaing.endtoend.persistence.entities.HistoryTable
+import com.myosetpaing.endtoend.persistence.entities.ProductTable
+import com.myosetpaing.endtoend.persistence.typeconverters.CategoryListConverter
+import com.myosetpaing.endtoend.persistence.typeconverters.DateConverter
+import com.myosetpaing.endtoend.persistence.typeconverters.ProductImageUrlListConverter
 
 
 @Database(
@@ -27,18 +26,19 @@ import com.myosetpaing.endtoend.persistence.dao.ProductDao
         CategoryVO::class,
         FavoriteVO::class,
         ProductTable::class,
-        HistoryTable::class], version = 5, exportSchema = false
+        HistoryTable::class], version = 6, exportSchema = false
 )
-@TypeConverters(CategoryListConverter::class, ProductImageUrlListConverter::class)
+@TypeConverters(CategoryListConverter::class, ProductImageUrlListConverter::class, DateConverter::class)
 
 abstract class EndToEndDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
 
     abstract fun categoryDao(): CategoryDao
     abstract fun loginUserDao(): LoginDao
-    abstract fun historyDao(): HistoryDao
 
     abstract fun favouriteDao(): FavouriteDao
+
+    abstract fun historyDao(): HistoryDao
 
     companion object {
         private var INSTANCE: EndToEndDatabase? = null
@@ -53,6 +53,7 @@ abstract class EndToEndDatabase : RoomDatabase() {
 
         }
     }
+
     fun isUserLogin(): Boolean {
 
         val count = loginUserDao().getUserCount()
@@ -61,6 +62,17 @@ abstract class EndToEndDatabase : RoomDatabase() {
         }
         return false
     }
+
+    fun isFavorite(productId:Int): Boolean {
+        val count = favouriteDao().getFavoriteCount(productId)
+        if (count >=0) {
+            return true
+        } else if (count == 0) {
+            return false
+        }
+        return false
+    }
+
     fun isProductAvailable(): Boolean {
 
         val count = productDao().getProductCount()
@@ -78,7 +90,6 @@ abstract class EndToEndDatabase : RoomDatabase() {
         }
         return false
     }
-
 
 
 }

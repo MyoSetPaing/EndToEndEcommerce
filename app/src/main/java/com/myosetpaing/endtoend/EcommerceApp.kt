@@ -1,9 +1,7 @@
 package com.myosetpaing.endtoend
 
 import android.app.Application
-import com.myosetpaing.endtoend.data.model.BaseModel
-import com.myosetpaing.endtoend.data.model.EndToEndModelImpl
-import com.myosetpaing.endtoend.data.model.LoginModelImpl
+import com.myosetpaing.endtoend.data.model.*
 
 class EcommerceApp : Application() {
 
@@ -11,6 +9,9 @@ class EcommerceApp : Application() {
         super.onCreate()
         EndToEndModelImpl.initModel(applicationContext)
         LoginModelImpl.initModel(applicationContext)
+        FavoriteModelImpl.initModel(applicationContext)
+        HistoryModelImpl.initModel(applicationContext)
+
 
     }
 }

@@ -4,6 +4,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.myosetpaing.endtoend.data.vos.ProductVO
 import com.myosetpaing.endtoend.delegates.ProductItemDelegate
+import kotlinx.android.synthetic.main.item_view_product.*
 import kotlinx.android.synthetic.main.item_view_product.view.*
 
 class ProductViewHolder(itemView: View, private val productItemDelegate: ProductItemDelegate) :
@@ -18,6 +19,16 @@ class ProductViewHolder(itemView: View, private val productItemDelegate: Product
         itemView.tv_product_price.text = data.product_price
         itemView.setOnClickListener {
             productItemDelegate.onTapProductItem(data)
+        }
+        itemView.ivFavorite.setOnClickListener {
+            itemView.ivFavorite.visibility = View.GONE
+            itemView.ivUnFavorite.visibility = View.VISIBLE
+            productItemDelegate.onTapFavorite(data)
+        }
+        itemView.ivUnFavorite.setOnClickListener {
+            itemView.ivFavorite.visibility = View.VISIBLE
+            itemView.ivUnFavorite.visibility = View.GONE
+            productItemDelegate.onTapFavorite(data)
         }
 
     }

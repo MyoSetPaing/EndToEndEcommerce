@@ -2,40 +2,43 @@ package com.myosetpaing.endtoend.activities
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.myosetpaing.endtoend.R
+import com.myosetpaing.endtoend.Utils.BottomOffsetDecoration
 import com.myosetpaing.endtoend.adapters.CategoryRecyclerViewAdapter
 import com.myosetpaing.endtoend.adapters.ProductRecyclerViewAdapter
-import com.myosetpaing.endtoend.data.model.EndToEndModel
-import com.myosetpaing.endtoend.data.model.EndToEndModelImpl
-import com.myosetpaing.endtoend.data.model.LoginModel
-import com.myosetpaing.endtoend.data.model.LoginModelImpl
+import com.myosetpaing.endtoend.data.model.*
 import com.myosetpaing.endtoend.data.vos.CategoryVO
 import com.myosetpaing.endtoend.data.vos.ProductVO
 import com.myosetpaing.endtoend.delegates.*
 import com.myosetpaing.endtoend.network.EndToEndDA
-import com.myosetpaing.endtoend.network.RetrofitDataAgent
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_view_product.*
 
 class MainActivity : BaseActivity(), CategoryItemDelegate, ProductItemDelegate {
 
 
     private val mEndToEndModel: EndToEndModel
     private val mLoginModel: LoginModel
-
+    private val mFavoriteModel: FavoriteModel
+    private val mHistoryModel: HistoryModel
+    private lateinit var bottomOffsetDecoration: BottomOffsetDecoration
     private val mCategoryAdapter: CategoryRecyclerViewAdapter
     private val mProductAdapter: ProductRecyclerViewAdapter
+
+    private var isFavorite: Boolean = false
 
     init {
         mEndToEndModel = EndToEndModelImpl
         mLoginModel = LoginModelImpl
+        mFavoriteModel = FavoriteModelImpl
+        mHistoryModel = HistoryModelImpl
         mCategoryAdapter = CategoryRecyclerViewAdapter(this, this)
         mProductAdapter = ProductRecyclerViewAdapter(this, this)
     }
@@ -50,29 +53,50 @@ class MainActivity : BaseActivity(), CategoryItemDelegate, ProductItemDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setBottomOffsetDecoration()
 
 
-        if(mLoginModel.isUserLogin()){
+        if (mLoginModel.isUserLogin()) {
             rv_category.adapter = mCategoryAdapter
             rv_category.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
             rv_productList.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
             rv_productList.adapter = mProductAdapter
+            rv_productList.addItemDecoration(bottomOffsetDecoration)
             BindProduct()
 
 
 
-            fab.setOnClickListener {
-                val intent = Intent(applicationContext, ProductDetailActivity::class.java)
-                startActivity(intent)
+            bottomBar.replaceMenu(R.menu.menu_bottom_view)
+            bottomBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_home -> goToMainActivity()
+                    R.id.action_profile -> goToProfileActivity()
+                }
+                true
             }
-        }else{
+
+            fab.setOnClickListener {
+                startActivity(FavoriteActivity.newIntent(this))
+            }
+        } else {
             startActivity(LoginActivity.newIntent(this))
             finish()
         }
 
+    }
 
+    private fun goToMainActivity() {
+        startActivity(MainActivity.newIntent(this))
+        finish()
+    }
 
+    private fun goToProfileActivity() {
+        startActivity(ProfileActivity.newIntent(this))
 
+    }
+
+    private fun setBottomOffsetDecoration() {
+        bottomOffsetDecoration = BottomOffsetDecoration(resources.getDimension(R.dimen.bottom_offset_dp).toInt())
     }
 
     private fun BindProduct() {
@@ -104,11 +128,25 @@ class MainActivity : BaseActivity(), CategoryItemDelegate, ProductItemDelegate {
         }, true)
     }
 
+    override fun onTapFavorite(productVO: ProductVO) {
+        val favItem = mFavoriteModel.addToFavorite(productVO)
+        if (favItem > 0) {
+
+        } else {
+            mFavoriteModel.removeFromFavorite(productVO.product_id)
+        }
+
+
+    }
+
     override fun onTapCategoryItem() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this@MainActivity, "Tap Category", Toast.LENGTH_LONG).show()
+
     }
 
     override fun onTapProductItem(product: ProductVO) {
+        mHistoryModel.addToHistory(product.product_id)
+
         val intent = ProductDetailActivity.newIntent(this)
         intent.putExtra("product_id", product.product_id)
         startActivity(intent)

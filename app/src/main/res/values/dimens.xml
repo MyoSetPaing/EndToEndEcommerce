@@ -44,4 +44,7 @@
     <dimen name="left_menu_width">300dp</dimen>
 
     <dimen name="news_logo_size">120dp</dimen>
+
+    <dimen name="bottom_offset_dp">62dp</dimen>
+
 </resources>

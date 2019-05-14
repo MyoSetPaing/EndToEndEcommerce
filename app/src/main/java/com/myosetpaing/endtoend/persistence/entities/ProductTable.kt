@@ -1,4 +1,4 @@
-package com.akkt.ecommerce.persistence.entities
+package com.myosetpaing.endtoend.persistence.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

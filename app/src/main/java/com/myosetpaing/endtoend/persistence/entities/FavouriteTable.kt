@@ -1,4 +1,4 @@
-package com.akkt.ecommerce.persistence.entities
+package com.myosetpaing.endtoend.persistence.entities
 
 import android.arch.persistence.room.*
 import com.myosetpaing.endtoend.data.vos.ProductVO

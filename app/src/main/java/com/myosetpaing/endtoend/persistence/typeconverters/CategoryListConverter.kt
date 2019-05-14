@@ -1,13 +1,10 @@
-package com.akkt.ecommerce.persistence.typeconverters
+package com.myosetpaing.endtoend.persistence.typeconverters
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.myosetpaing.endtoend.data.vos.CategoryVO
 
-/**
- *Created by Aung Ko Ko Thet on 4/26/19
- */
 class CategoryListConverter {
 
     @TypeConverter

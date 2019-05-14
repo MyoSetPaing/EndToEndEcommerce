@@ -1,8 +1,7 @@
 package com.myosetpaing.endtoend.network.response
 
-import com.akkt.ecommerce.data.vos.*
 import com.google.gson.annotations.SerializedName
-import com.myosetpaing.endtoend.data.vos.SellingVO
+import com.myosetpaing.endtoend.data.vos.*
 
 data class GetLoginUserResponse(
 

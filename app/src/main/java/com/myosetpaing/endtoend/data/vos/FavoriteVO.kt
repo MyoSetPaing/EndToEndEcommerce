@@ -1,4 +1,4 @@
-package com.akkt.ecommerce.data.vos
+package com.myosetpaing.endtoend.data.vos
 
 import android.arch.persistence.room.*
 import com.google.gson.annotations.SerializedName

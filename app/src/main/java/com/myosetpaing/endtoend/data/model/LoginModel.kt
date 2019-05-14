@@ -1,6 +1,6 @@
 package com.myosetpaing.endtoend.data.model
 
-import com.akkt.ecommerce.data.vos.LoginUserVO
+import com.myosetpaing.endtoend.data.vos.LoginUserVO
 import com.myosetpaing.endtoend.delegates.LoginDelegate
 
 interface LoginModel {

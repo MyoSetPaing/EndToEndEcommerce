@@ -58,53 +58,60 @@
         />
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_medium"
-                android:text="Category"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/tv_category"/>
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_category"
-                android:layout_marginStart="16dp"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_medium"
-                android:text="HotItem"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/textView"
-                android:layout_below="@id/rv_category"/>
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_productList"
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView"
-                android:layout_marginStart="16dp"
+                android:layout_height="match_parent"
         >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_medium"
+                    android:text="Category"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tv_category"/>
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_category"
+                    android:layout_marginStart="16dp"/>
 
-    </RelativeLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_medium"
+                    android:text="HotItem"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/textView"
+                    android:layout_below="@id/rv_category"/>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_productList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView"
+                    android:layout_marginStart="16dp"
+            >
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.bottomappbar.BottomAppBar
-            android:id="@+id/bab"
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:backgroundTint="@color/colorIcon"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_gravity="bottom"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -114,7 +121,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/bab"
+            app:layout_anchor="@id/bottomBar"
             app:srcCompat="@drawable/ic_favorite_white_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

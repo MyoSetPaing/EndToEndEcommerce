@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import com.akkt.ecommerce.data.vos.LoginUserVO
+import com.myosetpaing.endtoend.data.vos.LoginUserVO
 
 @Dao
 interface LoginDao{

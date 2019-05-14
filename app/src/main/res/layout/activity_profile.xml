@@ -1,10 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.ProfileActivity">
+        android:layout_height="wrap_content"
+        tools:context=".activities.ProfileActivity"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+>
 
-</RelativeLayout>
+
+
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_xlarge">
+
+            <android.support.v7.widget.CardView
+                    android:id="@+id/cvProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="50dp"
+            >
+                <ImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dark"/>
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvProfile"
+                    android:text="Myo Set Paing"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:textStyle="bold"
+            />
+            <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserName"
+                    android:text="Sanchaung Township, Yangon"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:textSize="@dimen/text_regular"
+            />
+
+        </RelativeLayout>
+        <RadioGroup
+                android:id="@+id/radGroup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#60B5B5B6"
+                android:orientation="horizontal"
+        >
+
+            <RadioButton
+                    android:id="@+id/radCollection"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:text="24 Collection"/>
+            <RadioButton
+                    android:id="@+id/radHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12 History"
+                    android:button="@null"/>
+
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium_2">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>
